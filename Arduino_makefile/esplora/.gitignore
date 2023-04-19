@@ -1,0 +1,13 @@
+*.o
+*.elf
+*.bin
+*.ali
+*.asm
+*.s
+*.S
+*.map
+*.hex
+*.d
+*.a
+
+!/ARL/src/cores/arduino/*.S
