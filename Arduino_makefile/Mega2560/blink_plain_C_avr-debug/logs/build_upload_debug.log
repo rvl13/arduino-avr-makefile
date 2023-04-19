@@ -1,0 +1,137 @@
+
+
+
+E:\temp\Arduino_makefile\Mega2560\blink_plain_C_avr-debug>make clean_all_dbg
+rm -rf ./debug/obj/*.o ./debug/obj/*.elf ./debug/obj/*.bin ./debug/obj/*.ali ./debug/obj/*.asm ./debug/obj/*.s ./debug/obj/*.S ./debug/obj/*.map ./debug/obj/*.hex ./debug/obj/*.d ./debug/dasm/*.asm ./debug/asm/*.s
+for d in ./libraries/avr-debug ; do \
+        make -w -C $d clean_dbg ; \
+done
+make[1]: Entering directory 'E:/temp/Arduino_makefile/Mega2560/blink_plain_C_avr-debug/libraries/avr-debug'
+rm -rf ./debug/obj/*.o ./debug/obj/*.elf ./debug/obj/*.bin ./debug/obj/*.ali ./debug/obj/*.asm ./debug/obj/*.s ./debug/obj/*.S ./debug/obj/*.map ./debug/obj/*.hex ./debug/obj/*.d ./debug/obj/*.a
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/Mega2560/blink_plain_C_avr-debug/libraries/avr-debug'
+
+E:\temp\Arduino_makefile\Mega2560\blink_plain_C_avr-debug>make all_dbg
+for d in ./libraries/avr-debug ; do \
+        make -w -C $d all_dbg ; \
+done
+make[1]: Entering directory 'E:/temp/Arduino_makefile/Mega2560/blink_plain_C_avr-debug/libraries/avr-debug'
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -c -g -Os -MMD -DF_CPU=16000000UL -mmcu=atmega2560 -I./src -o debug/obj/app_api.o src/app_api.c
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -c -g -Os -MMD -DF_CPU=16000000UL -mmcu=atmega2560 -I./src -o debug/obj/avr8-stub.o src/avr8-stub.c
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/Mega2560/blink_plain_C_avr-debug/libraries/avr-debug'
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -c -g -Os -MMD -DF_CPU=16000000UL -mmcu=atmega2560 -I./libraries/avr-debug/src -o debug/obj/c_mega.c.o src/c_mega.c
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -mmcu=atmega2560 -Wl,-Map=debug/obj/blink_mega2560.elf.map -o debug/obj/blink_mega2560.elf debug/obj/c_mega.c.o ./libraries/avr-debug/debug/obj/*.o
+
+E:\temp\Arduino_makefile\Mega2560\blink_plain_C_avr-debug>make bin_dbg
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-objcopy.exe -O ihex -R .eeprom ./debug/obj/blink_mega2560.elf debug/obj/blink_mega2560.hex
+
+E:\temp\Arduino_makefile\Mega2560\blink_plain_C_avr-debug>make load_dbg PORT=COM7
+D:/SW_11/avrdude-v7.1-windows-x64/avrdude.exe -D -c wiring -p atmega2560 -P COM7 -b 115200 -U flash:w:./debug/obj/blink_mega2560.hex
+
+avrdude: AVR device initialized and ready to accept instructions
+avrdude: device signature = 0x1e9801 (probably m2560)
+avrdude: reading input file ./debug/obj/blink_mega2560.hex for flash
+         with 5096 bytes in 1 section within [0, 0x13e7]
+         using 20 pages and 24 pad bytes
+avrdude: writing 5096 bytes flash ...
+
+Writing | ################################################## | 100% 0.85 s
+
+avrdude: 5096 bytes of flash written
+avrdude: verifying flash memory against ./debug/obj/blink_mega2560.hex
+
+Reading | ################################################## | 100% 0.66 s
+
+avrdude: 5096 bytes of flash verified
+
+avrdude done.  Thank you.
+
+
+E:\temp\Arduino_makefile\Mega2560\blink_plain_C_avr-debug>make dbg
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gdb.exe
+GNU gdb (GDB) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "--host=x86_64-w64-mingw32 --target=avr".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+(gdb) file debug/obj/blink_mega2560.elf
+Reading symbols from debug/obj/blink_mega2560.elf...
+(gdb) target remote COM7
+Remote debugging using COM7
+main () at src/c_mega.c:34
+34              PORTB |= _BV(LED_PIN);  /* LED on */
+(gdb) n
+main () at src/c_mega.c:34
+34              PORTB |= _BV(LED_PIN);  /* LED on */
+(gdb) n
+35              cnt++;
+(gdb) n
+36              result = function(cnt);
+(gdb) info locals
+No locals.
+(gdb) p result
+$1 = 0
+(gdb) n
+37              PORTB &= ~_BV(LED_PIN); /* LED off */
+(gdb) p result
+$2 = 2
+(gdb) n
+38              result++;
+(gdb) n
+32          while(1)
+(gdb) n
+34              PORTB |= _BV(LED_PIN);  /* LED on */
+(gdb) n
+35              cnt++;
+(gdb) n
+36              result = function(cnt);
+(gdb) n
+37              PORTB &= ~_BV(LED_PIN); /* LED off */
+(gdb) n
+38              result++;
+(gdb) n
+32          while(1)
+(gdb) p cnt
+$3 = 2
+(gdb) n
+34              PORTB |= _BV(LED_PIN);  /* LED on */
+(gdb) n
+35              cnt++;
+(gdb) n
+36              result = function(cnt);
+(gdb) p cnt
+$4 = 3
+(gdb) n
+37              PORTB &= ~_BV(LED_PIN); /* LED off */
+(gdb) n
+38              result++;
+(gdb)
+32          while(1)
+(gdb)
+34              PORTB |= _BV(LED_PIN);  /* LED on */
+(gdb)
+35              cnt++;
+(gdb)
+36              result = function(cnt);
+(gdb)
+37              PORTB &= ~_BV(LED_PIN); /* LED off */
+(gdb)
+38              result++;
+(gdb) q
+A debugging session is active.
+
+        Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y
+
+
+
