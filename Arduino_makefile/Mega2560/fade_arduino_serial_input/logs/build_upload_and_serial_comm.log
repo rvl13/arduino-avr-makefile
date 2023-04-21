@@ -1,0 +1,79 @@
+
+E:\temp\Arduino_makefile\Mega2560\fade_arduino_serial_input_3>make clean_all_prd
+rm -rf ./prod/obj/*.o ./prod/obj/*.elf ./prod/obj/*.bin ./prod/obj/*.ali ./prod/obj/*.asm ./prod/obj/*.s ./prod/obj/*.S ./prod/obj/*.map ./prod/obj/*.hex ./prod/obj/*.d ./prod/dasm/*.asm ./prod/asm/*.s
+
+E:\temp\Arduino_makefile\Mega2560\fade_arduino_serial_input_3>make all_prd
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-g++.exe -c -Os -MMD -DF_CPU=16000000UL -mmcu=atmega2560 -I../ARL/src/cores/arduino -I../ARL/src/variants/mega -o prod/obj/fade_arduino_serial_input_local_echo.cpp.o src/fade_arduino_serial_input_local_echo.cpp
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -mmcu=atmega2560 -Wl,-Map=prod/obj/fade_mega2560.elf.map -o prod/obj/fade_mega2560.elf prod/obj/fade_arduino_serial_input_local_echo.cpp.o  ../ARL/prod/obj/ARL.a
+
+E:\temp\Arduino_makefile\Mega2560\fade_arduino_serial_input_3>make bin_prd
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-objcopy.exe -O ihex -R .eeprom ./prod/obj/fade_mega2560.elf prod/obj/fade_mega2560.hex
+
+E:\temp\Arduino_makefile\Mega2560\fade_arduino_serial_input_3>make load_prd PORT=COM7
+D:/SW_11/avrdude-v7.1-windows-x64/avrdude.exe -D -c wiring -p atmega2560 -P COM7 -b 115200 -U flash:w:./prod/obj/fade_mega2560.hex
+
+avrdude: AVR device initialized and ready to accept instructions
+avrdude: device signature = 0x1e9801 (probably m2560)
+avrdude: reading input file ./prod/obj/fade_mega2560.hex for flash
+         with 16974 bytes in 1 section within [0, 0x424d]
+         using 67 pages and 178 pad bytes
+avrdude: writing 16974 bytes flash ...
+
+Writing | ################################################## | 100% 2.78 s
+
+avrdude: 16974 bytes of flash written
+avrdude: verifying flash memory against ./prod/obj/fade_mega2560.hex
+
+Reading | ################################################## | 100% 2.20 s
+
+avrdude: 16974 bytes of flash verified
+
+avrdude done.  Thank you.
+
+
+
+E:\temp\Arduino_makefile\Mega2560\fade_arduino_serial_input_3>make sercom PORT=7
+<<< SimplySerial v0.7.0 connected via COM7 >>>
+Settings  : 9600 baud, no parity, 8 data bits, 1 stop bit, auto-connect on.
+Device    : Arduino PID:0042
+---
+
+Use CTRL-X to exit.
+
+ setting LED to 50% brightness
+-----------------------------------
+Enter the brightness value for LED : 50
+Valid value supplied, changing the brightness to : 50
+Setting the LED to brightness : 50
+-----------------------------------
+-----------------------------------
+Enter the brightness value for LED : -6
+Negative value, turning the LED off
+Setting the LED to brightness : 0
+-----------------------------------
+-----------------------------------
+Enter the brightness value for LED : 690
+Value greater than max possible, setting the LED to max brightness
+Setting the LED to brightness : 255
+-----------------------------------
+-----------------------------------
+Enter the brightness value for LED : 152
+Valid value supplied, changing the brightness to : 152
+Setting the LED to brightness : 152
+-----------------------------------
+-----------------------------------
+Enter the brightness value for LED : 0
+Either 0 value or invalid value, maintaining the current brightness
+Setting the LED to brightness : 152
+-----------------------------------
+-----------------------------------
+Enter the brightness value for LED : jhwelr
+Either 0 value or invalid value, maintaining the current brightness
+Setting the LED to brightness : 152
+-----------------------------------
+-----------------------------------
+Enter the brightness value for LED :
+<<< SimplySerial session terminated via CTRL-X >>>
+
+E:\temp\Arduino_makefile\Mega2560\fade_arduino_serial_input_3>
+

@@ -1,0 +1,91 @@
+E:\temp\Arduino_makefile\Mega2560\blink_arduino_avr-debug>make clean_all_dbg
+rm -rf ./debug/obj/*.o ./debug/obj/*.elf ./debug/obj/*.bin ./debug/obj/*.ali ./debug/obj/*.asm ./debug/obj/*.s ./debug/obj/*.S ./debug/obj/*.map ./debug/obj/*.hex ./debug/obj/*.d ./debug/dasm/*.asm ./debug/asm/*.s
+for d in ./libraries/avr-debug ; do \
+        make -w -C $d clean_dbg ; \
+done
+make[1]: Entering directory 'E:/temp/Arduino_makefile/Mega2560/blink_arduino_avr-debug/libraries/avr-debug'
+rm -rf ./debug/obj/*.o ./debug/obj/*.elf ./debug/obj/*.bin ./debug/obj/*.ali ./debug/obj/*.asm ./debug/obj/*.s ./debug/obj/*.S ./debug/obj/*.map ./debug/obj/*.hex ./debug/obj/*.d ./debug/obj/*.a
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/Mega2560/blink_arduino_avr-debug/libraries/avr-debug'
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino_avr-debug>make clean_all_prd
+rm -rf ./prod/obj/*.o ./prod/obj/*.elf ./prod/obj/*.bin ./prod/obj/*.ali ./prod/obj/*.asm ./prod/obj/*.s ./prod/obj/*.S ./prod/obj/*.map ./prod/obj/*.hex ./prod/obj/*.d ./prod/dasm/*.asm ./prod/asm/*.s
+for d in ./libraries/avr-debug ; do \
+        make -w -C $d clean_prd ; \
+done
+make[1]: Entering directory 'E:/temp/Arduino_makefile/Mega2560/blink_arduino_avr-debug/libraries/avr-debug'
+rm -rf ./prod/obj/*.o ./prod/obj/*.elf ./prod/obj/*.bin ./prod/obj/*.ali ./prod/obj/*.asm ./prod/obj/*.s ./prod/obj/*.S ./prod/obj/*.map ./prod/obj/*.hex ./prod/obj/*.d ./prod/obj/*.a
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/Mega2560/blink_arduino_avr-debug/libraries/avr-debug'
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino_avr-debug>make all_dbg
+for d in ./libraries/avr-debug ; do \
+        make -w -C $d all_dbg ; \
+done
+make[1]: Entering directory 'E:/temp/Arduino_makefile/Mega2560/blink_arduino_avr-debug/libraries/avr-debug'
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -c -g -Os -MMD -DF_CPU=16000000UL -mmcu=atmega2560 -I./src -o debug/obj/app_api.o src/app_api.c
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -c -g -Os -MMD -DF_CPU=16000000UL -mmcu=atmega2560 -I./src -o debug/obj/avr8-stub.o src/avr8-stub.c
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/Mega2560/blink_arduino_avr-debug/libraries/avr-debug'
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-g++.exe -c -g -Os -MMD -DF_CPU=16000000UL -mmcu=atmega2560 -I../ARL_with_avr-debug_patch/src/cores/arduino -I../ARL_with_avr-debug_patch/src/variants/mega -I./libraries/avr-debug/src -o debug/obj/blink_arduino.cpp.o src/blink_arduino.cpp
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -mmcu=atmega2560 -Wl,-Map=debug/obj/blink_mega2560.elf.map -o debug/obj/blink_mega2560.elf debug/obj/blink_arduino.cpp.o ./libraries/avr-debug/debug/obj/*.o ../ARL_with_avr-debug_patch/debug/obj/ARL.a
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino_avr-debug>make bin_dbg
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-objcopy.exe -O ihex -R .eeprom ./debug/obj/blink_mega2560.elf debug/obj/blink_mega2560.hex
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino_avr-debug>make load_dbg PORT=COM7
+D:/SW_11/avrdude-v7.1-windows-x64/avrdude.exe -D -c wiring -p atmega2560 -P COM7 -b 115200 -U flash:w:./debug/obj/blink_mega2560.hex
+
+avrdude: AVR device initialized and ready to accept instructions
+avrdude: device signature = 0x1e9801 (probably m2560)
+avrdude: reading input file ./debug/obj/blink_mega2560.hex for flash
+         with 6668 bytes in 1 section within [0, 0x1a0b]
+         using 27 pages and 244 pad bytes
+avrdude: writing 6668 bytes flash ...
+
+Writing | ################################################## | 100% 1.14 s
+
+avrdude: 6668 bytes of flash written
+avrdude: verifying flash memory against ./debug/obj/blink_mega2560.hex
+
+Reading | ################################################## | 100% 0.90 s
+
+avrdude: 6668 bytes of flash verified
+
+avrdude done.  Thank you.
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino_avr-debug>make dbg
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gdb.exe
+GNU gdb (GDB) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "--host=x86_64-w64-mingw32 --target=avr".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word".
+(gdb) file debug/obj/blink_mega2560.elf
+Reading symbols from debug/obj/blink_mega2560.elf...
+(gdb) target remote COM7
+Remote debugging using COM7
+loop () at src/blink_arduino.cpp:29
+29              digitalWrite(13, HIGH);
+(gdb) n
+loop () at src/blink_arduino.cpp:29
+29              digitalWrite(13, HIGH);
+(gdb) n
+30              delay(200);
+(gdb) n
+31              digitalWrite(13, LOW);
+(gdb) n
+32              delay(500);
+(gdb) q
+A debugging session is active.
+
+        Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y

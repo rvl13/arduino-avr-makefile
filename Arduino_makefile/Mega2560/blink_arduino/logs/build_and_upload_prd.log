@@ -1,0 +1,34 @@
+E:\temp\Arduino_makefile\Mega2560\blink_arduino>make clean_all_prd
+rm -rf ./prod/obj/*.o ./prod/obj/*.elf ./prod/obj/*.bin ./prod/obj/*.ali ./prod/obj/*.asm ./prod/obj/*.s ./prod/obj/*.S ./prod/obj/*.map ./prod/obj/*.hex ./prod/obj/*.d ./prod/dasm/*.asm ./prod/asm/*.s
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino>make clean_all_dbg
+rm -rf ./debug/obj/*.o ./debug/obj/*.elf ./debug/obj/*.bin ./debug/obj/*.ali ./debug/obj/*.asm ./debug/obj/*.s ./debug/obj/*.S ./debug/obj/*.map ./debug/obj/*.hex ./debug/obj/*.d ./debug/dasm/*.asm ./debug/asm/*.s
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino>make all_prd
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-g++.exe -c -Os -MMD -DF_CPU=16000000UL -mmcu=atmega2560 -I../ARL/src/cores/arduino -I../ARL/src/variants/mega -o prod/obj/blink_arduino.cpp.o src/blink_arduino.cpp
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -mmcu=atmega2560 -Wl,-Map=prod/obj/blink_mega2560.elf.map -o prod/obj/blink_mega2560.elf prod/obj/blink_arduino.cpp.o  ../ARL/prod/obj/ARL.a
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino>make bin_prd
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-objcopy.exe -O ihex -R .eeprom ./prod/obj/blink_mega2560.elf prod/obj/blink_mega2560.hex
+
+E:\temp\Arduino_makefile\Mega2560\blink_arduino>make load_prd PORT=COM7
+D:/SW_11/avrdude-v7.1-windows-x64/avrdude.exe -D -c wiring -p atmega2560 -P COM7 -b 115200 -U flash:w:./prod/obj/blink_mega2560.hex
+
+avrdude: AVR device initialized and ready to accept instructions
+avrdude: device signature = 0x1e9801 (probably m2560)
+avrdude: reading input file ./prod/obj/blink_mega2560.hex for flash
+         with 1912 bytes in 1 section within [0, 0x777]
+         using 8 pages and 136 pad bytes
+avrdude: writing 1912 bytes flash ...
+
+Writing | ################################################## | 100% 0.37 s
+
+avrdude: 1912 bytes of flash written
+avrdude: verifying flash memory against ./prod/obj/blink_mega2560.hex
+
+Reading | ################################################## | 100% 0.27 s
+
+avrdude: 1912 bytes of flash verified
+
+avrdude done.  Thank you.
+

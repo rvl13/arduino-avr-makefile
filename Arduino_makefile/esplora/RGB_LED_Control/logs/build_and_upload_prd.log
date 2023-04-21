@@ -1,0 +1,50 @@
+E:\temp\Arduino_makefile\esplora\RGB_LED_Control>make clean_all_prd
+rm -rf ./prod/obj/*.o ./prod/obj/*.elf ./prod/obj/*.bin ./prod/obj/*.ali ./prod/obj/*.asm ./prod/obj/*.s ./prod/obj/*.S ./prod/obj/*.map ./prod/obj/*.hex ./prod/obj/*.d ./prod/dasm/*.asm ./prod/asm/*.s
+for d in ./libraries/rainbow ./libraries/rgb_pwm ; do \
+        make -w -C $d clean_prd ; \
+done
+make[1]: Entering directory 'E:/temp/Arduino_makefile/esplora/RGB_LED_Control/libraries/rainbow'
+rm -rf ./prod/obj/*.o ./prod/obj/*.elf ./prod/obj/*.bin ./prod/obj/*.ali ./prod/obj/*.asm ./prod/obj/*.s ./prod/obj/*.S ./prod/obj/*.map ./prod/obj/*.hex ./prod/obj/*.d ./prod/obj/*.a
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/esplora/RGB_LED_Control/libraries/rainbow'
+make[1]: Entering directory 'E:/temp/Arduino_makefile/esplora/RGB_LED_Control/libraries/rgb_pwm'
+rm -rf ./prod/obj/*.o ./prod/obj/*.elf ./prod/obj/*.bin ./prod/obj/*.ali ./prod/obj/*.asm ./prod/obj/*.s ./prod/obj/*.S ./prod/obj/*.map ./prod/obj/*.hex ./prod/obj/*.d ./prod/obj/*.a
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/esplora/RGB_LED_Control/libraries/rgb_pwm'
+
+E:\temp\Arduino_makefile\esplora\RGB_LED_Control>make all_prd
+for d in ./libraries/rainbow ./libraries/rgb_pwm ; do \
+        make -w -C $d all_prd ; \
+done
+make[1]: Entering directory 'E:/temp/Arduino_makefile/esplora/RGB_LED_Control/libraries/rainbow'
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-g++.exe -fno-threadsafe-statics -c -Os -MMD -DF_CPU=16000000UL -mmcu=atmega32u4 -I./src -I../rgb_pwm/src -I../../../ARL/src/cores/arduino -I../../../ARL/src/variants/leonardo -DUSB_VID=0x2341 -DUSB_PID=0x803c -o prod/obj/rainbow.cpp.o src/rainbow.cpp
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/esplora/RGB_LED_Control/libraries/rainbow'
+make[1]: Entering directory 'E:/temp/Arduino_makefile/esplora/RGB_LED_Control/libraries/rgb_pwm'
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-g++.exe -fno-threadsafe-statics -c -Os -MMD -DF_CPU=16000000UL -mmcu=atmega32u4 -I./src -I../../../ARL/src/cores/arduino -I../../../ARL/src/variants/leonardo -DUSB_VID=0x2341 -DUSB_PID=0x803c -o prod/obj/rgb_pwm.cpp.o src/rgb_pwm.cpp
+make[1]: Leaving directory 'E:/temp/Arduino_makefile/esplora/RGB_LED_Control/libraries/rgb_pwm'
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-g++.exe -fno-threadsafe-statics -c -Os -MMD -DF_CPU=16000000UL -mmcu=atmega32u4 -I../ARL/src/cores/arduino -I../ARL/src/variants/leonardo -I./libraries/rainbow/src -I./libraries/rgb_pwm/src -DUSB_VID=0x2341 -DUSB_PID=0x803c -o prod/obj/Esplora_RGB_OOP_rainbow.ino.cpp.o src/Esplora_RGB_OOP_rainbow.ino.cpp
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-gcc.exe -mmcu=atmega32u4 -Wl,-Map=prod/obj/esplora_rgb.elf.map -o prod/obj/esplora_rgb.elf prod/obj/Esplora_RGB_OOP_rainbow.ino.cpp.o ./libraries/rainbow/prod/obj/*.o ./libraries/rgb_pwm/prod/obj/*.o ../ARL/prod/obj/ARL.a
+
+E:\temp\Arduino_makefile\esplora\RGB_LED_Control>make bin_prd
+D:/SW_11/avr-gcc-12.1.0-x64-windows/bin/avr-objcopy.exe -O ihex -R .eeprom ./prod/obj/esplora_rgb.elf prod/obj/esplora_rgb.hex
+
+E:\temp\Arduino_makefile\esplora\RGB_LED_Control>make load_prd ESPL=COM8 BOOT=COM9
+"C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe" -file ./commport_open.ps1 COM8
+sleep 2
+D:/SW_11/avrdude-v7.1-windows-x64/avrdude.exe -D -c avr109 -p atmega32u4 -P COM9 -b 57600 -U flash:w:./prod/obj/esplora_rgb.hex
+
+avrdude: AVR device initialized and ready to accept instructions
+avrdude: device signature = 0x1e9587 (probably m32u4)
+avrdude: reading input file ./prod/obj/esplora_rgb.hex for flash
+         with 6164 bytes in 1 section within [0, 0x1813]
+         using 49 pages and 108 pad bytes
+avrdude: writing 6164 bytes flash ...
+
+Writing | ################################################## | 100% 0.55 s
+
+avrdude: 6164 bytes of flash written
+avrdude: verifying flash memory against ./prod/obj/esplora_rgb.hex
+
+Reading | ################################################## | 100% 0.13 s
+
+avrdude: 6164 bytes of flash verified
+
+avrdude done.  Thank you.
