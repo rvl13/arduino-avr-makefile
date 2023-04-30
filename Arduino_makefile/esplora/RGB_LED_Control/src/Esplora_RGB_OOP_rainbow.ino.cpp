@@ -27,6 +27,6 @@ void loop() {
 
     i = (i + 5) % 256;
 
-    delay(70);
+    delay(50);
 }
 

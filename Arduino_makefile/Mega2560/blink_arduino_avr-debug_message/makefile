@@ -34,12 +34,17 @@ RUNTIME_DIR 	:= ../ARL_with_avr-debug_patch
 # Root of the user libraries folder
 LIB_ROOT_DIR	:= ./libraries
 
+# mention the names of library folders located in $LIB_ROOT_DIR (./libraries)
+#LIB_ALL			:= avr-debug
+#LIB_DIR_ALL		:= ${addprefix ${LIB_ROOT_DIR}/, ${LIB_ALL}}
+LIB_DIR_ALL			:= $(wildcard $(LIB_ROOT_DIR)/*)
+
 # various include directories where header files are located.
 INC_DIR_1		:= ${RUNTIME_DIR}/src/cores/arduino
 INC_DIR_2		:= ${RUNTIME_DIR}/src/variants/mega
-INC_DIR_3		:= ${LIB_ROOT_DIR}/avr-debug/src
+INC_DIR_LIB_ALL	:= ${addsuffix /src, ${LIB_DIR_ALL}}
 # All the include directories combined
-INC_DIRS 		:= ${INC_DIR_1} ${INC_DIR_2} ${INC_DIR_3}
+INC_DIRS 		:= ${INC_DIR_1} ${INC_DIR_2} ${INC_DIR_LIB_ALL}
 # suffix -I to all the include directories, to be used as command line argument
 INC_DIRS_ARG	:= ${addprefix -I, ${INC_DIRS}}
 
@@ -49,27 +54,12 @@ DBG_ARL := ${RUNTIME_DIR}/debug/obj/ARL.a
 PRD_ARL := ${RUNTIME_DIR}/prod/obj/ARL.a
 
 
-# Individual User Library folders
-LIB_DIR_1 := ${LIB_ROOT_DIR}/avr-debug
-# all the User library folders combined
-LIB_DIR_ALL := ${LIB_DIR_1}
+# Object files for all the User Libraries (Debug and Prod builds)
+DBG_OBJ_DIR_LIB_ALL :=  ${addsuffix /debug/obj, ${LIB_DIR_ALL}}
+PRD_OBJ_DIR_LIB_ALL :=  ${addsuffix /prod/obj, ${LIB_DIR_ALL}}
 
-# Object Directory for User Library 1 (Debug build)
-DBG_OBJ_DIR_LIB_1 := ${LIB_DIR_1}/debug/obj
-#DBG_OBJ_DIR_FNM_EXT_LIB_1 := $(wildcard $(DBG_OBJ_DIR_LIB_1)/*.o)
-# Object files for User Library 1 (Debug build)
-DBG_OBJ_DIR_FNM_EXT_LIB_1 := ${DBG_OBJ_DIR_LIB_1}/*.o
-
-# Object Directory for User Library 1 (Prod build)
-PRD_OBJ_DIR_LIB_1 := ${LIB_DIR_1}/prod/obj
-#PRD_OBJ_DIR_FNM_EXT_LIB_1 := $(wildcard $(PRD_OBJ_DIR_LIB_1)/*.o)
-# Object files for User Library 1 (Prod build)
-PRD_OBJ_DIR_FNM_EXT_LIB_1 := ${PRD_OBJ_DIR_LIB_1}/*.o
-
-# Object files for all the User Libraries (Debug build)
-DBG_OBJ_DIR_FNM_EXT_LIB_ALL := ${DBG_OBJ_DIR_FNM_EXT_LIB_1}
-# Object files for all the User Libraries (Prod build)
-PRD_OBJ_DIR_FNM_EXT_LIB_ALL := ${PRD_OBJ_DIR_FNM_EXT_LIB_1}
+DBG_OBJ_DIR_FNM_EXT_LIB_ALL := ${addsuffix /*.o, ${DBG_OBJ_DIR_LIB_ALL}}
+PRD_OBJ_DIR_FNM_EXT_LIB_ALL := ${addsuffix /*.o, ${PRD_OBJ_DIR_LIB_ALL}}
 
 
 
