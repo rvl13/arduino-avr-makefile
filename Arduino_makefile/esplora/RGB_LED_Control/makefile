@@ -34,7 +34,7 @@ RUNTIME_DIR 	:= ../ARL
 # Root of the user libraries folder
 LIB_ROOT_DIR	:= ./libraries
 
-# mention the names of library folders locates in $LIB_ROOT_DIR (./libraries)
+# mention the names of library folders located in $LIB_ROOT_DIR (./libraries)
 #LIB_ALL			:= rainbow rgb_pwm
 #LIB_DIR_ALL		:= ${addprefix ${LIB_ROOT_DIR}/, ${LIB_ALL}}
 LIB_DIR_ALL			:= $(wildcard $(LIB_ROOT_DIR)/*)
@@ -54,7 +54,7 @@ DBG_ARL := ${RUNTIME_DIR}/debug/obj/ARL.a
 PRD_ARL := ${RUNTIME_DIR}/prod/obj/ARL.a
 
 
-# The object files for all the libraries
+# Object files for all the User Libraries (Debug and Prod builds)
 DBG_OBJ_DIR_LIB_ALL :=  ${addsuffix /debug/obj, ${LIB_DIR_ALL}}
 PRD_OBJ_DIR_LIB_ALL :=  ${addsuffix /prod/obj, ${LIB_DIR_ALL}}
 

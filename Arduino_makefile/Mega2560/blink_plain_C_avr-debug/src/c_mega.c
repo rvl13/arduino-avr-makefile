@@ -13,7 +13,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-/* relative path for GDB stub valid only if this file is in the examples subfolder */
+//#include "util/delay.h"
 #include "avr8-stub.h"
 
 /* pin PB7 is the onboard LED on Arduino Mega (Arduino pin 13) */
@@ -32,9 +32,11 @@ int main(void)
     while(1)
     {
     	PORTB |= _BV(LED_PIN);	/* LED on */
+        //_delay_ms(50);
     	cnt++;
     	result = function(cnt);
     	PORTB &= ~_BV(LED_PIN);	/* LED off */
+        //_delay_ms(500);
     	result++;
     }
     return 0;
