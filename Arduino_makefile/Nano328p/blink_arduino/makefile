@@ -474,7 +474,13 @@ clean_prd :
 
 
 # call like > make load_dbg PORT=COM7
-# Upload debug binary (.hex) to arduino 
+# Upload debug binary (.hex) to arduino
+
+# Note that arduino nano (with Old Bootloader) won't work at 115200 Baudrate,
+# it works at 57600 baudrate only.
+# refer 
+# https://arduino.stackexchange.com/questions/804/arduino-nano-uploading-gives-error-avrdude-stk500-recv-programmer-is-not-re
+
 load_dbg :
 	${AVRDUD} -D -c arduino -p ${MCU} -P ${PORT} -b 57600 -U flash:w:${DBG_BIN_DIR_FNM_EXT}
 
